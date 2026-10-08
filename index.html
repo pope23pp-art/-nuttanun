@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บทเรียนออนไลน์ - ทักษะและการจัดการเรียนรู้กีฬากรีฑา</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+    <style>
+        :root {
+            --bg-main: #FEF9E7;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-shadow: 0 10px 32px 0 rgba(168, 180, 150, 0.15);
+            --topic1-accent: #FF9F1C;
+            --topic2-accent: #FF4D6D;
+            --topic3-accent: #2EC4B6;
+        }
+
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+            background-color: var(--bg-main);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 211, 182, 0.4) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(168, 230, 207, 0.4) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(255, 170, 165, 0.25) 0%, transparent 60%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #2D3748;
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--glass-shadow);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px 0 rgba(140, 150, 120, 0.22);
+        }
+
+        /* Sweep Light Effect */
+        .sweep-light::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(
+                90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.7) 50%, 
+                transparent 100%
+            );
+            transform: skewX(-25deg);
+            animation: sweepLight 10s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes sweepLight {
+            0% { left: -150%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        /* Nav Tabs */
+        .nav-tab {
+            transition: all 0.3s ease;
+            border-radius: 20px;
+        }
+        .nav-tab.active-t1 {
+            background-color: var(--topic1-accent);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 159, 28, 0.35);
+        }
+        .nav-tab.active-t2 {
+            background-color: var(--topic2-accent);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.35);
+        }
+        .nav-tab.active-t3 {
+            background-color: var(--topic3-accent);
+            color: white;
+            box-shadow: 0 8px 20px rgba(46, 196, 182, 0.35);
+        }
+
+        /* Custom Hover Button */
+        .btn-hover {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 16px;
+        }
+        .btn-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+        }
+        .btn-hover:active {
+            transform: translateY(0);
+        }
+
+        /* Step Badge */
+        .step-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        /* Locked Card Styling */
+        .locked-card {
+            opacity: 0.6;
+            filter: grayscale(0.5);
+            pointer-events: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="p-3 md:p-6 text-gray-800">
+
+    <div class="max-w-5xl mx-auto">
+
+        <!-- 1. LOGIN SCREEN -->
+        <div id="login-screen" class="glass-card sweep-light my-10 p-8 md:p-12 text-center max-w-xl mx-auto">
+            <div class="w-20 h-20 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6 text-emerald-600 shadow-inner">
+                <i class="fa-solid fa-running text-4xl"></i>
+            </div>
+            
+            <span class="inline-block px-4 py-1.5 bg-emerald-200 text-emerald-800 text-sm font-semibold rounded-full mb-3">
+                บทเรียนออนไลน์
+            </span>
+            
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+                ทักษะและการจัดการเรียนรู้กีฬากรีฑา
+            </h1>
+            <p class="text-gray-600 mb-8 text-sm md:text-base">
+                กรุณากรอกชื่อ–นามสกุล เพื่อเข้าสู่บทเรียนและบันทึกพัฒนาการ
+            </p>
+
+            <form onsubmit="event.preventDefault(); handleLogin();" class="space-y-5">
+                <div class="text-left">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1.5 ml-1">ชื่อ - นามสกุล ผู้เรียน</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <input type="text" id="studentNameInput" required
+                            placeholder="เช่น นายสมชาย ใจดี" 
+                            class="w-full pl-11 pr-4 py-3.5 bg-white/80 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-emerald-400 focus:outline-none transition shadow-sm text-gray-800">
+                    </div>
+                </div>
+
+                <button type="submit" 
+                    class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-2xl shadow-lg shadow-emerald-500/30 btn-hover text-lg flex items-center justify-center gap-2">
+                    <span>เข้าสู่บทเรียน</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+            
+            <p class="text-xs text-gray-500 mt-6">
+                * ระบบจะบันทึกข้อมูลชื่อและคะแนนการประเมินลง Google Sheet อัตโนมัติ
+            </p>
+        </div>
+
+        <!-- 2. MAIN CLASSROOM WORKSPACE -->
+        <div id="classroom-screen" class="hidden space-y-6">
+            
+            <!-- Top Header Navbar -->
+            <header class="glass-card p-4 md:p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-3.5">
+                    <div class="p-3 bg-emerald-500 text-white rounded-2xl shadow-md">
+                        <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xs font-semibold text-emerald-700 uppercase tracking-wide">วิชาออนไลน์</h2>
+                        <h1 class="text-lg md:text-xl font-bold text-gray-800">ทักษะและการจัดการเรียนรู้กีฬากรีฑา</h1>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-3 md:pt-0 border-gray-200/60">
+                    <div class="text-left md:text-right">
+                        <span class="text-xs text-gray-500 block">ผู้เรียน</span>
+                        <span id="displayStudentName" class="font-bold text-gray-800 text-sm md:text-base"></span>
+                    </div>
+                    <button onclick="handleLogout()" 
+                        class="px-4 py-2 bg-rose-100 hover:bg-rose-200 text-rose-700 rounded-xl text-sm font-semibold transition flex items-center gap-1.5 btn-hover">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>ออกจากระบบ</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Navigation Tabs for 3 Topics -->
+            <nav class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <button id="tab-btn-1" onclick="switchTopic(1)" 
+                    class="nav-tab p-4 glass-card text-left flex items-center gap-3 font-semibold text-gray-700 active-t1">
+                    <span class="w-8 h-8 rounded-xl bg-orange-400 text-white flex items-center justify-center font-bold text-sm">1</span>
+                    <span class="text-sm md:text-base">1. การเสริมสร้างสมรรถภาพทางกาย</span>
+                </button>
+
+                <button id="tab-btn-2" onclick="switchTopic(2)" 
+                    class="nav-tab p-4 glass-card text-left flex items-center gap-3 font-semibold text-gray-700">
+                    <span class="w-8 h-8 rounded-xl bg-rose-400 text-white flex items-center justify-center font-bold text-sm">2</span>
+                    <span class="text-sm md:text-base">2. กรีฑาประเภทวิ่งระยะสั้น</span>
+                </button>
+
+                <button id="tab-btn-3" onclick="switchTopic(3)" 
+                    class="nav-tab p-4 glass-card text-left flex items-center gap-3 font-semibold text-gray-700">
+                    <span class="w-8 h-8 rounded-xl bg-teal-400 text-white flex items-center justify-center font-bold text-sm">3</span>
+                    <span class="text-sm md:text-base">3. กรีฑาประเภทวิ่งผลัด</span>
+                </button>
+            </nav>
+
+            <!-- ================= TOPIC 1 CONTAINER ================= -->
+            <main id="topic-container-1" class="topic-content space-y-6">
+                <!-- Banner -->
+                <div class="glass-card sweep-light p-6 bg-gradient-to-r from-orange-100/90 to-amber-100/90 border-orange-200">
+                    <span class="text-xs font-bold text-orange-600 uppercase tracking-wider">ทักษะและการจัดการเรียนรู้กีฬากรีฑา</span>
+                    <h2 class="text-2xl font-bold text-gray-800 mt-1">หัวข้อที่ 1: การเสริมสร้างสมรรถภาพทางกาย</h2>
+                </div>
+
+                <!-- STEP 1: Pre-test -->
+                <section id="card-t1-s1" class="glass-card p-6 border-orange-300">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-orange-500 text-white">1</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">แบบทดสอบก่อนเรียน</h3>
+                                <p class="text-xs text-gray-500">กรุณาเข้าทำแบบทดสอบเพื่อวัดความรู้พื้นฐาน</p>
+                            </div>
+                        </div>
+                        <span id="badge-t1-s1" class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full w-fit">
+                            <i class="fa-solid fa-spinner fa-spin mr-1"></i>กำลังเรียน
+                        </span>
+                    </div>
+
+                    <div class="p-5 bg-white/70 rounded-2xl border border-orange-100 flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-file-signature text-3xl text-orange-500"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">แบบทดสอบก่อนเรียน หัวข้อที่ 1</h4>
+                                <p class="text-xs text-gray-500">คลิกปุ่มเพื่อเปิดแบบทดสอบ Google Form</p>
+                            </div>
+                        </div>
+                        <button onclick="openFormModal('แบบทดสอบก่อนเรียน หัวข้อที่ 1', 'https://docs.google.com/forms/d/e/1FAIpQLSdRd5Xfxj9wxnZDjcfMJXZz8HpMcH-23qeD6dlKHFR-_7ZZ_g/viewform?embedded=true')" 
+                            class="px-5 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-xl shadow-md btn-hover flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <span>เข้าทำแบบทดสอบ</span>
+                        </button>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t1-s1" onclick="unlockNextStep(1, 1)" 
+                            class="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-xl shadow-md btn-hover">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันทำเสร็จแล้ว (ปลดล็อกส่วนถัดไป)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 2: Content PDF -->
+                <section id="card-t1-s2" class="glass-card p-6 border-orange-200 locked-card">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-amber-500 text-white">2</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">ส่วนเนื้อหาความรู้</h3>
+                                <p class="text-xs text-gray-500">ศึกษาเอกสารความรู้การเสริมสร้างสมรรถภาพทางกาย</p>
+                            </div>
+                        </div>
+                        <span id="badge-t1-s2" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit">
+                            <i class="fa-solid fa-lock mr-1"></i>ถูกล็อก
+                        </span>
+                    </div>
+
+                    <div class="rounded-2xl overflow-hidden border border-gray-200 bg-white mb-4">
+                        <iframe src="https://drive.google.com/file/d/1rz0ONuZ4Bf3L6XJIuWlyYdv1RWHDmyBq/preview" 
+                            class="w-full h-[500px]" frameborder="0"></iframe>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t1-s2" onclick="unlockNextStep(1, 2)" disabled 
+                            class="px-6 py-3 bg-emerald-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันอ่านเสร็จแล้ว (ปลดล็อกส่วนถัดไป)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 3: Videos -->
+                <section id="card-t1-s3" class="glass-card p-6 border-orange-200 locked-card">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-red-500 text-white">3</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">คลิปวิดีโอเพื่อการเรียนรู้</h3>
+                                <p class="text-xs text-gray-500">รับชมวิดีโอสาธิตทักษะการเสริมสร้างสมรรถภาพ</p>
+                            </div>
+                        </div>
+                        <span id="badge-t1-s3" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit">
+                            <i class="fa-solid fa-lock mr-1"></i>ถูกล็อก
+                        </span>
+                    </div>
+
+                    <div class="aspect-video rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-black mb-4">
+                        <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/28JW_fXh-4o?rel=0" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t1-s3" onclick="unlockNextStep(1, 3)" disabled 
+                            class="px-6 py-3 bg-emerald-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันดูคลิปเสร็จแล้ว (ปลดล็อกส่วนถัดไป)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 4: Exercise -->
+                <section id="card-t1-s4" class="glass-card p-6 border-orange-200 locked-card">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-emerald-500 text-white">4</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">แบบฝึกหัดทบทวน</h3>
+                                <p class="text-xs text-gray-500">ทบทวนความเข้าใจก่อนทำแบบทดสอบหลังเรียน</p>
+                            </div>
+                        </div>
+                        <span id="badge-t1-s4" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit">
+                            <i class="fa-solid fa-lock mr-1"></i>ถูกล็อก
+                        </span>
+                    </div>
+
+                    <div class="p-5 bg-white/70 rounded-2xl border border-emerald-100 flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-dumbbell text-3xl text-emerald-500"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">แบบฝึกหัดทบทวน หัวข้อที่ 1</h4>
+                                <p class="text-xs text-gray-500">คลิกปุ่มเพื่อเปิดทำแบบฝึกหัด</p>
+                            </div>
+                        </div>
+                        <button onclick="openFormModal('แบบฝึกหัดทบทวน หัวข้อที่ 1', 'https://docs.google.com/forms/d/e/1FAIpQLSdTF1_BrssNvh8p0NfPvRW0HwkO9w14U9YcBIPPWeJN3Xt3YA/viewform?embedded=true')" 
+                            class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-xl shadow-md btn-hover flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <span>เข้าทำแบบฝึกหัด</span>
+                        </button>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t1-s4" onclick="unlockNextStep(1, 4)" disabled 
+                            class="px-6 py-3 bg-emerald-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันทำแบบฝึกหัดเสร็จแล้ว (ปลดล็อกส่วนถัดไป)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 5: Post-test -->
+                <section id="card-t1-s5" class="glass-card p-6 border-orange-200 locked-card">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-blue-500 text-white">5</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">แบบทดสอบหลังเรียน</h3>
+                                <p class="text-xs text-gray-500">วัดผลสัมฤทธิ์ทางการเรียนหลังจบหัวข้อที่ 1</p>
+                            </div>
+                        </div>
+                        <span id="badge-t1-s5" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit">
+                            <i class="fa-solid fa-lock mr-1"></i>ถูกล็อก
+                        </span>
+                    </div>
+
+                    <div class="p-5 bg-white/70 rounded-2xl border border-blue-100 flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-square-check text-3xl text-blue-500"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">แบบทดสอบหลังเรียน หัวข้อที่ 1</h4>
+                                <p class="text-xs text-gray-500">คลิกปุ่มเพื่อเปิดแบบทดสอบหลังเรียน</p>
+                            </div>
+                        </div>
+                        <button onclick="openFormModal('แบบทดสอบหลังเรียน หัวข้อที่ 1', 'https://docs.google.com/forms/d/e/1FAIpQLScDUljp6WbAnFKPAFZlK9QOINon4E2Na8Xy5chu9AEqIZlrwQ/viewform?embedded=true')" 
+                            class="px-5 py-2.5 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl shadow-md btn-hover flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <span>เข้าทำแบบทดสอบ</span>
+                        </button>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t1-s5" onclick="unlockNextStep(1, 5)" disabled 
+                            class="px-6 py-3 bg-emerald-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันทำแบบทดสอบหลังเรียนเสร็จแล้ว (ปลดล็อกส่วนประเมินผล)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 6: Score Evaluation -->
+                <section id="card-t1-s6" class="glass-card p-6 border-orange-200 locked-card bg-amber-50/50">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-purple-500 text-white">6</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">ตรวจสอบคะแนนและการพัฒนา</h3>
+                                <p class="text-xs text-gray-500">เปรียบเทียบผลคะแนนสอบและวัดระดับคุณภาพพัฒนาการ</p>
+                            </div>
+                        </div>
+                        <span id="badge-t1-s6" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit">
+                            <i class="fa-solid fa-lock mr-1"></i>ถูกล็อก
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-white/80 p-4 rounded-2xl border border-gray-200">
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">คะแนนแบบทดสอบก่อนเรียน</label>
+                            <input type="number" id="pre-score-1" placeholder="ระบุคะแนนก่อนเรียน" min="0" max="100"
+                                class="w-full p-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-400 focus:outline-none">
+                        </div>
+
+                        <div class="bg-white/80 p-4 rounded-2xl border border-gray-200">
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">คะแนนแบบทดสอบหลังเรียน</label>
+                            <input type="number" id="post-score-1" placeholder="ระบุคะแนนหลังเรียน" min="0" max="100"
+                                class="w-full p-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-400 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <button onclick="calculateProgress(1)" id="btn-eval-1" disabled
+                        class="px-6 py-3.5 bg-gradient-to-r from-orange-500 to-amber-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md w-full md:w-auto">
+                        <i class="fa-solid fa-calculator mr-2"></i>คำนวณความก้าวหน้าและบันทึกผล
+                    </button>
+
+                    <div id="eval-result-1" class="hidden mt-6 p-6 rounded-2xl bg-white border border-orange-200 shadow-sm text-center"></div>
+                </section>
+            </main>
+
+            <!-- ================= TOPIC 2 CONTAINER ================= -->
+            <main id="topic-container-2" class="topic-content hidden space-y-6">
+                <!-- Banner -->
+                <div class="glass-card sweep-light p-6 bg-gradient-to-r from-rose-100/90 to-pink-100/90 border-rose-200">
+                    <span class="text-xs font-bold text-rose-600 uppercase tracking-wider">ทักษะและการจัดการเรียนรู้กีฬากรีฑา</span>
+                    <h2 class="text-2xl font-bold text-gray-800 mt-1">หัวข้อที่ 2: กรีฑาประเภทวิ่งระยะสั้น</h2>
+                </div>
+
+                <!-- STEP 1 -->
+                <section id="card-t2-s1" class="glass-card p-6 border-rose-300">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-rose-500 text-white">1</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">แบบทดสอบก่อนเรียน</h3>
+                                <p class="text-xs text-gray-500">วัดความรู้พื้นฐานเรื่องการวิ่งระยะสั้น</p>
+                            </div>
+                        </div>
+                        <span id="badge-t2-s1" class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full w-fit">
+                            <i class="fa-solid fa-spinner fa-spin mr-1"></i>กำลังเรียน
+                        </span>
+                    </div>
+
+                    <div class="p-5 bg-white/70 rounded-2xl border border-rose-100 flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-file-signature text-3xl text-rose-500"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">แบบทดสอบก่อนเรียน หัวข้อที่ 2</h4>
+                                <p class="text-xs text-gray-500">คลิกปุ่มเพื่อเปิดแบบทดสอบ Google Form</p>
+                            </div>
+                        </div>
+                        <button onclick="openFormModal('แบบทดสอบก่อนเรียน หัวข้อที่ 2', 'https://docs.google.com/forms/d/e/1FAIpQLSe3BsfniSFvYvOweQgBww-Cj2z5cRlBeK8igfWTs1n6ptx5Zg/viewform?embedded=true')" 
+                            class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-semibold rounded-xl shadow-md btn-hover flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <span>เข้าทำแบบทดสอบ</span>
+                        </button>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t2-s1" onclick="unlockNextStep(2, 1)" 
+                            class="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-xl shadow-md btn-hover">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันทำเสร็จแล้ว (ปลดล็อกส่วนถัดไป)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 2 -->
+                <section id="card-t2-s2" class="glass-card p-6 border-rose-200 locked-card">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-rose-400 text-white">2</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">ส่วนเนื้อหาความรู้</h3>
+                                <p class="text-xs text-gray-500">ศึกษาเอกสารเทคนิคการวิ่งระยะสั้น</p>
+                            </div>
+                        </div>
+                        <span id="badge-t2-s2" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit"><i class="fa-solid fa-lock mr-1"></i>ถูกล็อก</span>
+                    </div>
+
+                    <div class="rounded-2xl overflow-hidden border border-gray-200 bg-white mb-4">
+                        <iframe src="https://drive.google.com/file/d/19zmHi1BcoZ91S4bRpBXCDt3dv1vK5PMU/preview" class="w-full h-[500px]" frameborder="0"></iframe>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t2-s2" onclick="unlockNextStep(2, 2)" disabled class="px-6 py-3 bg-emerald-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันอ่านเสร็จแล้ว (ปลดล็อกส่วนถัดไป)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 3 -->
+                <section id="card-t2-s3" class="glass-card p-6 border-rose-200 locked-card">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-rose-600 text-white">3</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">คลิปวิดีโอเพื่อการเรียนรู้ (3 คลิป)</h3>
+                                <p class="text-xs text-gray-500">รับชมวิดีโอสาธิตท่าทางการวิ่งและการออกตัว</p>
+                            </div>
+                        </div>
+                        <span id="badge-t2-s3" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit"><i class="fa-solid fa-lock mr-1"></i>ถูกล็อก</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div class="space-y-1">
+                            <p class="text-xs font-semibold text-gray-700">1. การจัดท่าทางร่างกาย</p>
+                            <div class="aspect-video rounded-xl overflow-hidden border bg-black"><iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/SCr_xfByfRY?rel=0" frameborder="0" allowfullscreen></iframe></div>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-xs font-semibold text-gray-700">2. การออกตัวจากบล็อก</p>
+                            <div class="aspect-video rounded-xl overflow-hidden border bg-black"><iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/5K_O0-cXlPo?rel=0" frameborder="0" allowfullscreen></iframe></div>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-xs font-semibold text-gray-700">3. การเข้าเส้นชัย</p>
+                            <div class="aspect-video rounded-xl overflow-hidden border bg-black"><iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/Us6M0ODU2nY?rel=0" frameborder="0" allowfullscreen></iframe></div>
+                        </div>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t2-s3" onclick="unlockNextStep(2, 3)" disabled class="px-6 py-3 bg-emerald-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันดูคลิปเสร็จแล้ว (ปลดล็อกส่วนถัดไป)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 4 -->
+                <section id="card-t2-s4" class="glass-card p-6 border-rose-200 locked-card">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-pink-500 text-white">4</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">แบบฝึกหัดทบทวน</h3>
+                                <p class="text-xs text-gray-500">ทบทวนความรู้ก่อนสอบหลังเรียน</p>
+                            </div>
+                        </div>
+                        <span id="badge-t2-s4" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit"><i class="fa-solid fa-lock mr-1"></i>ถูกล็อก</span>
+                    </div>
+
+                    <div class="p-5 bg-white/70 rounded-2xl border border-pink-100 flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-dumbbell text-3xl text-pink-500"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">แบบฝึกหัดทบทวน หัวข้อที่ 2</h4>
+                                <p class="text-xs text-gray-500">คลิกปุ่มเพื่อเปิดทำแบบฝึกหัด</p>
+                            </div>
+                        </div>
+                        <button onclick="openFormModal('แบบฝึกหัดทบทวน หัวข้อที่ 2', 'https://docs.google.com/forms/d/e/1FAIpQLSd9CFnjKdqXQQZ0hb2pI_5BffZlPUvjx3OEW3cj301U0Kgaqg/viewform?embedded=true')" 
+                            class="px-5 py-2.5 bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-xl shadow-md btn-hover flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i><span>เข้าทำแบบฝึกหัด</span>
+                        </button>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t2-s4" onclick="unlockNextStep(2, 4)" disabled class="px-6 py-3 bg-emerald-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันทำแบบฝึกหัดเสร็จแล้ว (ปลดล็อกส่วนถัดไป)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 5 -->
+                <section id="card-t2-s5" class="glass-card p-6 border-rose-200 locked-card">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-rose-500 text-white">5</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">แบบทดสอบหลังเรียน</h3>
+                                <p class="text-xs text-gray-500">วัดผลสัมฤทธิ์ทางการเรียนเรื่องการวิ่งระยะสั้น</p>
+                            </div>
+                        </div>
+                        <span id="badge-t2-s5" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit"><i class="fa-solid fa-lock mr-1"></i>ถูกล็อก</span>
+                    </div>
+
+                    <div class="p-5 bg-white/70 rounded-2xl border border-rose-100 flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-square-check text-3xl text-rose-500"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">แบบทดสอบหลังเรียน หัวข้อที่ 2</h4>
+                                <p class="text-xs text-gray-500">คลิกปุ่มเพื่อเปิดแบบทดสอบหลังเรียน</p>
+                            </div>
+                        </div>
+                        <button onclick="openFormModal('แบบทดสอบหลังเรียน หัวข้อที่ 2', 'https://docs.google.com/forms/d/e/1FAIpQLSeLo56ldQWv-ClWOLq97iiU6WTqwHOp57W31EvU5M8dVhxhRg/viewform?embedded=true')" 
+                            class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-semibold rounded-xl shadow-md btn-hover flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i><span>เข้าทำแบบทดสอบ</span>
+                        </button>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t2-s5" onclick="unlockNextStep(2, 5)" disabled class="px-6 py-3 bg-emerald-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันทำแบบทดสอบหลังเรียนเสร็จแล้ว (ปลดล็อกส่วนประเมินผล)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 6 -->
+                <section id="card-t2-s6" class="glass-card p-6 border-rose-200 locked-card bg-rose-50/50">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-purple-500 text-white">6</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">ตรวจสอบคะแนนและการพัฒนา</h3>
+                                <p class="text-xs text-gray-500">เปรียบเทียบผลคะแนนและสรุปผลพัฒนาการ</p>
+                            </div>
+                        </div>
+                        <span id="badge-t2-s6" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit"><i class="fa-solid fa-lock mr-1"></i>ถูกล็อก</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-white/80 p-4 rounded-2xl border border-gray-200">
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">คะแนนแบบทดสอบก่อนเรียน</label>
+                            <input type="number" id="pre-score-2" placeholder="ระบุคะแนนก่อนเรียน" min="0" max="100" class="w-full p-3 bg-white border border-gray-300 rounded-xl">
+                        </div>
+                        <div class="bg-white/80 p-4 rounded-2xl border border-gray-200">
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">คะแนนแบบทดสอบหลังเรียน</label>
+                            <input type="number" id="post-score-2" placeholder="ระบุคะแนนหลังเรียน" min="0" max="100" class="w-full p-3 bg-white border border-gray-300 rounded-xl">
+                        </div>
+                    </div>
+
+                    <button onclick="calculateProgress(2)" id="btn-eval-2" disabled class="px-6 py-3.5 bg-gradient-to-r from-rose-500 to-pink-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md w-full md:w-auto">
+                        <i class="fa-solid fa-calculator mr-2"></i>คำนวณความก้าวหน้าและบันทึกผล
+                    </button>
+
+                    <div id="eval-result-2" class="hidden mt-6 p-6 rounded-2xl bg-white border border-rose-200 shadow-sm text-center"></div>
+                </section>
+            </main>
+
+            <!-- ================= TOPIC 3 CONTAINER ================= -->
+            <main id="topic-container-3" class="topic-content hidden space-y-6">
+                <!-- Banner -->
+                <div class="glass-card sweep-light p-6 bg-gradient-to-r from-teal-100/90 to-emerald-100/90 border-teal-200">
+                    <span class="text-xs font-bold text-teal-600 uppercase tracking-wider">ทักษะและการจัดการเรียนรู้กีฬากรีฑา</span>
+                    <h2 class="text-2xl font-bold text-gray-800 mt-1">หัวข้อที่ 3: กรีฑาประเภทวิ่งผลัด</h2>
+                </div>
+
+                <!-- STEP 1 -->
+                <section id="card-t3-s1" class="glass-card p-6 border-teal-300">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-teal-500 text-white">1</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">แบบทดสอบก่อนเรียน</h3>
+                                <p class="text-xs text-gray-500">วัดความรู้พื้นฐานเรื่องการวิ่งผลัด</p>
+                            </div>
+                        </div>
+                        <span id="badge-t3-s1" class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full w-fit">
+                            <i class="fa-solid fa-spinner fa-spin mr-1"></i>กำลังเรียน
+                        </span>
+                    </div>
+
+                    <div class="p-5 bg-white/70 rounded-2xl border border-teal-100 flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-file-signature text-3xl text-teal-500"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">แบบทดสอบก่อนเรียน หัวข้อที่ 3</h4>
+                                <p class="text-xs text-gray-500">คลิกปุ่มเพื่อเปิดแบบทดสอบ Google Form</p>
+                            </div>
+                        </div>
+                        <button onclick="openFormModal('แบบทดสอบก่อนเรียน หัวข้อที่ 3', 'https://docs.google.com/forms/d/e/1FAIpQLSfVMTieOWb66TrP4GLmw6zVMQFgDCdsEkF977VbW4llmFv5jw/viewform?embedded=true')" 
+                            class="px-5 py-2.5 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-xl shadow-md btn-hover flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i><span>เข้าทำแบบทดสอบ</span>
+                        </button>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t3-s1" onclick="unlockNextStep(3, 1)" class="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-xl shadow-md btn-hover">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันทำเสร็จแล้ว (ปลดล็อกส่วนถัดไป)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 2 -->
+                <section id="card-t3-s2" class="glass-card p-6 border-teal-200 locked-card">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-teal-400 text-white">2</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">ส่วนเนื้อหาความรู้</h3>
+                                <p class="text-xs text-gray-500">ศึกษาเอกสารเทคนิคและกติกาการวิ่งผลัด</p>
+                            </div>
+                        </div>
+                        <span id="badge-t3-s2" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit"><i class="fa-solid fa-lock mr-1"></i>ถูกล็อก</span>
+                    </div>
+
+                    <div class="rounded-2xl overflow-hidden border border-gray-200 bg-white mb-4">
+                        <iframe src="https://drive.google.com/file/d/1WP6O0Bzq8aL8uD2QHsxRDnuVR5m0zF9w/preview" class="w-full h-[500px]" frameborder="0"></iframe>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t3-s2" onclick="unlockNextStep(3, 2)" disabled class="px-6 py-3 bg-emerald-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันอ่านเสร็จแล้ว (ปลดล็อกส่วนถัดไป)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 3 -->
+                <section id="card-t3-s3" class="glass-card p-6 border-teal-200 locked-card">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-teal-600 text-white">3</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">คลิปวิดีโอเพื่อการเรียนรู้</h3>
+                                <p class="text-xs text-gray-500">รับชมวิดีโอสาธิตการส่งรับไม้คทาอย่างถูกวิธี</p>
+                            </div>
+                        </div>
+                        <span id="badge-t3-s3" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit"><i class="fa-solid fa-lock mr-1"></i>ถูกล็อก</span>
+                    </div>
+
+                    <div class="aspect-video rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-black mb-4">
+                        <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/cCenXEAUABw?rel=0" frameborder="0" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t3-s3" onclick="unlockNextStep(3, 3)" disabled class="px-6 py-3 bg-emerald-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันดูคลิปเสร็จแล้ว (ปลดล็อกส่วนถัดไป)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 4 -->
+                <section id="card-t3-s4" class="glass-card p-6 border-teal-200 locked-card">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-emerald-500 text-white">4</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">แบบฝึกหัดทบทวน</h3>
+                                <p class="text-xs text-gray-500">ทบทวนความรู้เรื่องการรับส่งไม้ผลัด</p>
+                            </div>
+                        </div>
+                        <span id="badge-t3-s4" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit"><i class="fa-solid fa-lock mr-1"></i>ถูกล็อก</span>
+                    </div>
+
+                    <div class="p-5 bg-white/70 rounded-2xl border border-teal-100 flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-dumbbell text-3xl text-emerald-500"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">แบบฝึกหัดทบทวน หัวข้อที่ 3</h4>
+                                <p class="text-xs text-gray-500">คลิกปุ่มเพื่อเปิดทำแบบฝึกหัด</p>
+                            </div>
+                        </div>
+                        <button onclick="openFormModal('แบบฝึกหัดทบทวน หัวข้อที่ 3', 'https://docs.google.com/forms/d/e/1FAIpQLSdb1OZ8UbU-YmmzpWUcgXirZNutpsyY4PwhEbK2UX735HhnXg/viewform?embedded=true')" 
+                            class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-xl shadow-md btn-hover flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i><span>เข้าทำแบบฝึกหัด</span>
+                        </button>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t3-s4" onclick="unlockNextStep(3, 4)" disabled class="px-6 py-3 bg-emerald-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันทำแบบฝึกหัดเสร็จแล้ว (ปลดล็อกส่วนถัดไป)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 5 -->
+                <section id="card-t3-s5" class="glass-card p-6 border-teal-200 locked-card">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-teal-500 text-white">5</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">แบบทดสอบหลังเรียน</h3>
+                                <p class="text-xs text-gray-500">วัดผลสัมฤทธิ์ทางการเรียนเรื่องการวิ่งผลัด</p>
+                            </div>
+                        </div>
+                        <span id="badge-t3-s5" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit"><i class="fa-solid fa-lock mr-1"></i>ถูกล็อก</span>
+                    </div>
+
+                    <div class="p-5 bg-white/70 rounded-2xl border border-teal-100 flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-square-check text-3xl text-teal-500"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">แบบทดสอบหลังเรียน หัวข้อที่ 3</h4>
+                                <p class="text-xs text-gray-500">คลิกปุ่มเพื่อเปิดแบบทดสอบหลังเรียน</p>
+                            </div>
+                        </div>
+                        <button onclick="openFormModal('แบบทดสอบหลังเรียน หัวข้อที่ 3', 'https://docs.google.com/forms/d/e/1FAIpQLSe9QJPZqluXIEYeMdY-wXM99SN0YQf5U-NYdOfJ7o0Pb5e3sw/viewform?embedded=true')" 
+                            class="px-5 py-2.5 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-xl shadow-md btn-hover flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i><span>เข้าทำแบบทดสอบ</span>
+                        </button>
+                    </div>
+
+                    <div class="text-right">
+                        <button id="btn-unlock-t3-s5" onclick="unlockNextStep(3, 5)" disabled class="px-6 py-3 bg-emerald-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md">
+                            <i class="fa-solid fa-check-circle mr-1.5"></i>ฉันทำแบบทดสอบหลังเรียนเสร็จแล้ว (ปลดล็อกส่วนประเมินผล)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- STEP 6 -->
+                <section id="card-t3-s6" class="glass-card p-6 border-teal-200 locked-card bg-teal-50/50">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="step-badge bg-purple-500 text-white">6</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">ตรวจสอบคะแนนและการพัฒนา</h3>
+                                <p class="text-xs text-gray-500">เปรียบเทียบผลคะแนนและสรุปผลพัฒนาการ</p>
+                            </div>
+                        </div>
+                        <span id="badge-t3-s6" class="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit"><i class="fa-solid fa-lock mr-1"></i>ถูกล็อก</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-white/80 p-4 rounded-2xl border border-gray-200">
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">คะแนนแบบทดสอบก่อนเรียน</label>
+                            <input type="number" id="pre-score-3" placeholder="ระบุคะแนนก่อนเรียน" min="0" max="100" class="w-full p-3 bg-white border border-gray-300 rounded-xl">
+                        </div>
+                        <div class="bg-white/80 p-4 rounded-2xl border border-gray-200">
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">คะแนนแบบทดสอบหลังเรียน</label>
+                            <input type="number" id="post-score-3" placeholder="ระบุคะแนนหลังเรียน" min="0" max="100" class="w-full p-3 bg-white border border-gray-300 rounded-xl">
+                        </div>
+                    </div>
+
+                    <button onclick="calculateProgress(3)" id="btn-eval-3" disabled class="px-6 py-3.5 bg-gradient-to-r from-teal-500 to-emerald-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-xl shadow-md w-full md:w-auto">
+                        <i class="fa-solid fa-calculator mr-2"></i>คำนวณความก้าวหน้าและบันทึกผล
+                    </button>
+
+                    <div id="eval-result-3" class="hidden mt-6 p-6 rounded-2xl bg-white border border-teal-200 shadow-sm text-center"></div>
+                </section>
+            </main>
+
+            <!-- POPUP MODAL FOR GOOGLE FORMS -->
+            <div id="form-modal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-3 md:p-6">
+                <div class="glass-card w-full max-w-4xl h-[85vh] bg-white/95 flex flex-col p-4 md:p-6">
+                    <div class="flex items-center justify-between pb-3 border-b border-gray-200 mb-3">
+                        <h3 id="modal-form-title" class="text-lg font-bold text-gray-800">แบบทดสอบ</h3>
+                        <div class="flex items-center gap-2">
+                            <a id="modal-external-link" href="#" target="_blank" class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-lg transition">
+                                <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>เปิดในแท็บใหม่
+                            </a>
+                            <button onclick="closeFormModal()" class="w-9 h-9 bg-rose-100 hover:bg-rose-200 text-rose-600 rounded-lg flex items-center justify-center font-bold text-lg">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-1 w-full rounded-xl overflow-hidden border border-gray-200 bg-white">
+                        <iframe id="modal-iframe" src="" class="w-full h-full" frameborder="0">กำลังโหลด...</iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CUSTOM NOTIFICATION MODAL -->
+            <div id="custom-modal" class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+                <div class="glass-card max-w-md w-full p-6 text-center bg-white/95">
+                    <div id="modal-icon" class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 text-2xl">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <h3 id="modal-title" class="text-xl font-bold text-gray-800 mb-2">แจ้งเตือน</h3>
+                    <p id="modal-message" class="text-gray-600 mb-6 text-sm"></p>
+                    <button onclick="closeModal()" class="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-xl shadow-md btn-hover">
+                        ตกลง
+                    </button>
+                </div>
+            </div>
+
+            <footer class="text-center text-xs text-gray-500 py-6">
+                © บทเรียนออนไลน์ ทักษะและการจัดการเรียนรู้กีฬากรีฑา — พัฒนาในรูปแบบ Single Page Application
+            </footer>
+        </div>
+
+    </div>
+
+    <script>
+        // State Management
+        let currentStudent = '';
+        let activeTopic = 1;
+
+        // Step Progression State per Topic [TopicNum][StepNum]
+        const stepProgress = {
+            1: { 1: true, 2: false, 3: false, 4: false, 5: false, 6: false },
+            2: { 1: true, 2: false, 3: false, 4: false, 5: false, 6: false },
+            3: { 1: true, 2: false, 3: false, 4: false, 5: false, 6: false }
+        };
+
+        // Handle Student Login
+        function handleLogin() {
+            const input = document.getElementById('studentNameInput');
+            const name = input.value.trim();
+            if(!name) {
+                showModal("กรุณากรอกข้อมูล", "โปรดระบุชื่อ-นามสกุลก่อนเข้าสู่บทเรียน", "warning");
+                return;
+            }
+
+            currentStudent = name;
+            document.getElementById('displayStudentName').innerText = currentStudent;
+
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('classroom-screen').classList.remove('hidden');
+
+            saveDataToGoogleSheet({
+                timestamp: new Date().toISOString(),
+                studentName: currentStudent,
+                action: "เข้าสู่ระบบ",
+                topic: "N/A",
+                preScore: "-",
+                postScore: "-",
+                progress: "-",
+                qualityLevel: "-"
+            });
+        }
+
+        // Handle Logout
+        function handleLogout() {
+            currentStudent = '';
+            document.getElementById('studentNameInput').value = '';
+
+            // Reset scores & lock states back to Step 1
+            for(let t=1; t<=3; t++) {
+                document.getElementById(`pre-score-${t}`).value = '';
+                document.getElementById(`post-score-${t}`).value = '';
+                document.getElementById(`eval-result-${t}`).classList.add('hidden');
+
+                for(let s=2; s<=6; s++) {
+                    stepProgress[t][s] = false;
+                    const card = document.getElementById(`card-t${t}-s${s}`);
+                    const badge = document.getElementById(`badge-t${t}-s${s}`);
+                    const btn = document.getElementById(s === 6 ? `btn-eval-${t}` : `btn-unlock-t${t}-s${s}`);
+
+                    if(card) card.classList.add('locked-card');
+                    if(badge) {
+                        badge.className = "px-3 py-1 bg-gray-200 text-gray-600 text-xs font-bold rounded-full w-fit";
+                        badge.innerHTML = '<i class="fa-solid fa-lock mr-1"></i>ถูกล็อก';
+                    }
+                    if(btn) {
+                        btn.disabled = true;
+                        btn.classList.add('opacity-50', 'cursor-not-allowed');
+                        if(s < 6) btn.classList.remove('btn-hover');
+                    }
+                }
+            }
+
+            document.getElementById('classroom-screen').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            showModal("ออกจากระบบเรียบร้อย", "ล้างข้อมูลเซสชันและสถานะบทเรียนเรียบร้อยแล้ว", "info");
+        }
+
+        // Navigation Tabs
+        function switchTopic(topicNum) {
+            activeTopic = topicNum;
+            for(let i=1; i<=3; i++) {
+                const btn = document.getElementById(`tab-btn-${i}`);
+                const container = document.getElementById(`topic-container-${i}`);
+                btn.className = `nav-tab p-4 glass-card text-left flex items-center gap-3 font-semibold text-gray-700`;
+
+                if(i === topicNum) {
+                    btn.classList.add(`active-t${i}`);
+                    container.classList.remove('hidden');
+                } else {
+                    container.classList.add('hidden');
+                }
+            }
+        }
+
+        // Step-by-Step Unlock Function
+        function unlockNextStep(topicNum, currentStep) {
+            const nextStep = currentStep + 1;
+            stepProgress[topicNum][nextStep] = true;
+
+            // Update Current Step Badge to Completed
+            const currentBadge = document.getElementById(`badge-t${topicNum}-s${currentStep}`);
+            if(currentBadge) {
+                currentBadge.className = "px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full w-fit";
+                currentBadge.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i>เสร็จสิ้นแล้ว';
+            }
+
+            // Unlock Next Step Card & Badge
+            const nextCard = document.getElementById(`card-t${topicNum}-s${nextStep}`);
+            const nextBadge = document.getElementById(`badge-t${topicNum}-s${nextStep}`);
+            const nextBtn = document.getElementById(nextStep === 6 ? `btn-eval-${topicNum}` : `btn-unlock-t${topicNum}-s${nextStep}`);
+
+            if(nextCard) nextCard.classList.remove('locked-card');
+            if(nextBadge) {
+                nextBadge.className = "px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full w-fit";
+                nextBadge.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i>กำลังเรียน';
+            }
+            if(nextBtn) {
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                if(nextStep < 6) nextBtn.classList.add('btn-hover');
+            }
+
+            // Smooth Scroll to Next Step
+            if(nextCard) {
+                nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            showModal("ปลดล็อกสำเร็จ!", `คุณทำกิจกรรมส่วนที่ ${currentStep} เสร็จสิ้นแล้ว และปลดล็อกส่วนที่ ${nextStep} เรียบร้อย`, "success");
+        }
+
+        // Open Form Modal
+        function openFormModal(title, url) {
+            document.getElementById('modal-form-title').innerText = title;
+            document.getElementById('modal-iframe').src = url;
+            
+            // Clean direct viewurl for external tab link
+            const directUrl = url.replace('?embedded=true', '');
+            document.getElementById('modal-external-link').href = directUrl;
+
+            document.getElementById('form-modal').classList.remove('hidden');
+        }
+
+        function closeFormModal() {
+            document.getElementById('form-modal').classList.add('hidden');
+            document.getElementById('modal-iframe').src = '';
+        }
+
+        // Calculate Score & Progress Analysis
+        function calculateProgress(topicNum) {
+            const preVal = document.getElementById(`pre-score-${topicNum}`).value;
+            const postVal = document.getElementById(`post-score-${topicNum}`).value;
+
+            if(preVal === '' || postVal === '') {
+                showModal("ข้อมูลไม่ครบถ้วน", "กรุณากรอกคะแนนแบบทดสอบก่อนเรียนและหลังเรียนให้ครบถ้วน", "warning");
+                return;
+            }
+
+            const pre = parseFloat(preVal);
+            const post = parseFloat(postVal);
+            const diff = post - pre;
+
+            let quality = "";
+            let colorClass = "";
+            let badgeIcon = "";
+
+            if (diff >= 5) {
+                quality = "ระดับคุณภาพ: ดีมาก (มีการพัฒนาอย่างโดดเด่น)";
+                colorClass = "text-emerald-700 bg-emerald-50 border-emerald-200";
+                badgeIcon = '<i class="fa-solid fa-award text-3xl text-emerald-500 mb-2"></i>';
+            } else if (diff > 0) {
+                quality = "ระดับคุณภาพ: ดี (มีความก้าวหน้าและพัฒนาการดี)";
+                colorClass = "text-blue-700 bg-blue-50 border-blue-200";
+                badgeIcon = '<i class="fa-solid fa-thumbs-up text-3xl text-blue-500 mb-2"></i>';
+            } else if (diff === 0) {
+                quality = "ระดับคุณภาพ: พอใช้ (คะแนนคงที่ ควรทบทวนเนื้อหา)";
+                colorClass = "text-amber-700 bg-amber-50 border-amber-200";
+                badgeIcon = '<i class="fa-solid fa-file-lines text-3xl text-amber-500 mb-2"></i>';
+            } else {
+                quality = "ระดับคุณภาพ: ควรปรับปรุง (คะแนนลดลง ควรทบทวนอีกครั้ง)";
+                colorClass = "text-rose-700 bg-rose-50 border-rose-200";
+                badgeIcon = '<i class="fa-solid fa-triangle-exclamation text-3xl text-rose-500 mb-2"></i>';
+            }
+
+            const evalBox = document.getElementById(`eval-result-${topicNum}`);
+            evalBox.className = `mt-6 p-6 rounded-2xl border text-center transition-all ${colorClass}`;
+            evalBox.innerHTML = `
+                ${badgeIcon}
+                <h4 class="text-xl font-bold mb-2">สรุปผลประเมินความก้าวหน้า (หัวข้อที่ ${topicNum})</h4>
+                <div class="grid grid-cols-3 gap-2 max-w-md mx-auto my-4 text-center">
+                    <div class="p-3 bg-white/80 rounded-xl shadow-sm">
+                        <span class="text-xs text-gray-500 block">ก่อนเรียน</span>
+                        <span class="text-lg font-bold text-gray-800">${pre}</span>
+                    </div>
+                    <div class="p-3 bg-white/80 rounded-xl shadow-sm">
+                        <span class="text-xs text-gray-500 block">หลังเรียน</span>
+                        <span class="text-lg font-bold text-gray-800">${post}</span>
+                    </div>
+                    <div class="p-3 bg-white/80 rounded-xl shadow-sm">
+                        <span class="text-xs text-gray-500 block">พัฒนาการ</span>
+                        <span class="text-lg font-bold ${diff >= 0 ? 'text-emerald-600' : 'text-rose-600'}">
+                            ${diff > 0 ? '+' + diff : diff}
+                        </span>
+                    </div>
+                </div>
+                <p class="font-semibold text-base mt-2">${quality}</p>
+            `;
+            evalBox.classList.remove('hidden');
+
+            // Mark Step 6 Completed Badge
+            const badge6 = document.getElementById(`badge-t${topicNum}-s6`);
+            if(badge6) {
+                badge6.className = "px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full w-fit";
+                badge6.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i>ประเมินเรียบร้อย';
+            }
+
+            saveDataToGoogleSheet({
+                timestamp: new Date().toISOString(),
+                studentName: currentStudent,
+                action: "คำนวณและประเมินคะแนน",
+                topic: `หัวข้อที่ ${topicNum}`,
+                preScore: pre,
+                postScore: post,
+                progress: diff,
+                qualityLevel: quality
+            });
+        }
+
+        // Google Sheet Integration
+        function saveDataToGoogleSheet(payload) {
+            console.log("บันทึกข้อมูลเข้า Google Sheets:", payload);
+            const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
+
+            if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).catch(err => console.error("Error saving sheet:", err));
+            }
+        }
+
+        // Custom Notification Modal
+        function showModal(title, message, type = "info") {
+            const modal = document.getElementById('custom-modal');
+            const titleEl = document.getElementById('modal-title');
+            const msgEl = document.getElementById('modal-message');
+            const iconEl = document.getElementById('modal-icon');
+
+            titleEl.innerText = title;
+            msgEl.innerText = message;
+
+            if(type === "warning") {
+                iconEl.className = "w-14 h-14 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto mb-4 text-2xl";
+                iconEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+            } else if(type === "success") {
+                iconEl.className = "w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 text-2xl";
+                iconEl.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            } else {
+                iconEl.className = "w-14 h-14 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mx-auto mb-4 text-2xl";
+                iconEl.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
